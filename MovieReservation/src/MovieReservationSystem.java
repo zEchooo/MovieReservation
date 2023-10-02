@@ -12,7 +12,10 @@ public class MovieReservationSystem {
             MovieScheduleInstance.CSVReader();
             break;
             // Add cases for 2 and 3 here
-           
+        case "2":
+        SeatReservation system = new SeatReservation(10);
+        system.startReservation();
+        break;
      }
 
     }
