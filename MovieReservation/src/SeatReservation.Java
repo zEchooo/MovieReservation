@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class SeatReservation {
+ 
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
 
@@ -105,4 +105,6 @@ public class SeatReservation {
     
         return true;
     }
+
+
 }
