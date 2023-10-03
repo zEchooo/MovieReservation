@@ -5,7 +5,8 @@ public class Movie {
     private boolean isPremiere;
     private String title;
     private int length;
-    
+    private boolean[][] reservedSeats;
+
     @Override
     public String toString() {
         return "Date: " + date +
@@ -23,6 +24,7 @@ public class Movie {
         this.isPremiere = isPremiere;
         this.title = title;
         this.length = length;
+        reservedSeats = new boolean[8][5]; // 8 rows, 5 seats per row
     }
     
     public String getDate() {
@@ -60,5 +62,28 @@ public class Movie {
     }
     public void setLength(int length) {
         this.length = length;
+    }
+
+    
+    public boolean isSeatAvailable(int row, int seat) {
+        // Check if the seat is within valid row and seat number ranges
+        if (row >= 0 && row < reservedSeats.length && seat >= 0 && seat < reservedSeats[row].length) {
+            // Check if the seat is available (not reserved)
+            return !reservedSeats[row][seat];
+        }
+
+        // Invalid row or seat number
+        return false;
+    }
+
+    public void reserveSeat(int row, int seat) {
+        // Reserve the seat
+        if (row >= 0 && row < reservedSeats.length && seat >= 0 && seat < reservedSeats[row].length) {
+            reservedSeats[row][seat] = true;
+        }
+    }
+
+    public boolean[][] getReservedSeats() {
+        return reservedSeats;
     }
 }
