@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MovieReservationSystem {
@@ -11,8 +12,7 @@ public class MovieReservationSystem {
             System.out.println("2. Cancel Reservation");
             System.out.print("Select an option: ");
 
-            int option = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            int option = readNumericInput(scanner);
 
             switch (option) {
                 case 1:
@@ -25,15 +25,20 @@ public class MovieReservationSystem {
                             System.out.println((i + 1) + ". " + availableDates.get(i));
                         }
 
-                        System.out.print("Select a date: ");
-                        int dateChoice = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
-                        if (dateChoice < 1 || dateChoice > availableDates.size()) {
-                            System.out.println("Invalid date choice.");
-                            break;
-                        }
-                        
-                        String dateToReserve = availableDates.get(dateChoice - 1);
+                        int dateChoice;
+                        String dateToReserve;
+
+                        do {
+                            System.out.print("Select a date: ");
+                            dateChoice = readNumericInput(scanner);
+
+                            if (dateChoice < 1 || dateChoice > availableDates.size()) {
+                                System.out.println("Invalid date choice. Please try again.");
+                            } else {
+                                dateToReserve = availableDates.get(dateChoice - 1);
+                                break;
+                            }
+                        } while (true);
 
                         movieSchedule.displayMovieSchedule(dateToReserve);
 
@@ -55,6 +60,19 @@ public class MovieReservationSystem {
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    // Method to read numeric input and handle exceptions
+    private static int readNumericInput(Scanner scanner) {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+                scanner.nextLine();
+                System.out.print("Select an option: ");
             }
         }
     }
