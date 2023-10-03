@@ -4,10 +4,6 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
-
-        // Load movies from a CSV file using CSVHandler
-
         MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\iramonroe.tabora\\Downloads\\Test.csv");
         
         while (true) {
