@@ -5,8 +5,9 @@ public class Movie {
     private boolean isPremiere;
     private String title;
     private int length;
-
-    
+    private boolean[][] seats;
+    private static final int NUM_ROWS = 8;
+    private static final int NUM_COLUMNS = 5;
     @Override
     public String toString() {
         return "Date: " + date +
@@ -24,7 +25,10 @@ public class Movie {
         this.isPremiere = isPremiere;
         this.title = title;
         this.length = length;
+        this.seats = new boolean[NUM_ROWS][NUM_COLUMNS]; // Initialize the seat availability
+
     }
+    
     
     public String getDate() {
         return date;
@@ -61,5 +65,8 @@ public class Movie {
     }
     public void setLength(int length) {
         this.length = length;
+    }
+    public boolean[][] getSeats() {
+        return seats;
     }
 }
