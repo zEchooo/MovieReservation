@@ -4,8 +4,11 @@ public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
+<<<<<<< Updated upstream
 
         // Load movies from a CSV file using CSVHandler
+=======
+>>>>>>> Stashed changes
 
         while (true) {
             System.out.println("1. Reserve Seats");

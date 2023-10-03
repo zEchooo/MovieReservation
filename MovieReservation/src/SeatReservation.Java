@@ -4,13 +4,27 @@ import java.util.Scanner;
 public class SeatReservation {
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
-
+    public static int numOfDiscount = 0;
     public static void reserveSeats(Movie selectedMovie) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the number of seats to reserve:");
         int numSeatsToReserve = scanner.nextInt();
         scanner.nextLine(); // Consume newline
+
+        if(!selectedMovie.isPremiere()){
+            System.out.println("Enter number of senior citizen: ");
+            numOfDiscount = scanner.nextInt();
+            scanner.nextLine();
+            if (numOfDiscount > numSeatsToReserve) {
+                System.out.println("Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve.");
+                return; // Exit the method
+            }
+        }
+
+
+
+
 
         // Check seat availability and reserve seats
         ArrayList<String> reservedSeats = new ArrayList<>();
@@ -40,7 +54,7 @@ public class SeatReservation {
         }
 
         // Calculate total price based on movie type and senior citizen discount
-        double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats);
+        double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount);
 
         // Display reservation details
         System.out.println("Reservation successful for " + selectedMovie.getTitle());
@@ -56,14 +70,20 @@ public class SeatReservation {
         return false;
     }
 
-    private static double calculateTotalPrice(Movie movie, ArrayList<String> reservedSeats) {
+    private static double calculateTotalPrice(Movie movie, ArrayList<String> reservedSeats, double discount) {
         // Calculate total price based on movie type and selected seats
         double totalPrice = 0;
         if (!movie.isPremiere()) {
             int regularTicketPrice = 350;
-            totalPrice = regularTicketPrice * reservedSeats.size();
+            discount = (discount*regularTicketPrice) * 0.20;
+            totalPrice = (regularTicketPrice * reservedSeats.size()) - discount;
             // Apply senior citizen discount if necessary
         }
+        else{
+            int regularTicketPrice = 500;
+            totalPrice = (regularTicketPrice * reservedSeats.size());
+        }
+
         return totalPrice; // Placeholder, implement the logic
     }
 
