@@ -25,8 +25,11 @@ public class MovieReservationSystem {
                     System.out.println("Select movie: ");
                     int choice = scanner.nextInt();
                     Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve,choice);
-                    
                     System.out.println(selectedMovie.toString());
+                    
+                    SeatReservation.reserveSeats(selectedMovie);
+
+
                 } catch (Exception e) {
                     // TODO: handle exception
                 }
