@@ -36,11 +36,6 @@ public class SeatReservation {
         // Save reservation to CSV (implement this part)
     }
 
-    private static boolean isSeatAvailable(Movie movie, String seatCode, ArrayList<String> reservedSeats) {
-        // Check if the seat is within valid range and not already reserved
-        // Implement the logic to check seat availability
-        return true; // Placeholder, implement the actual logic
-    }
 
     private static double calculateTotalPrice(Movie movie, ArrayList<String> reservedSeats) {
         // Calculate total price based on movie type and selected seats
@@ -54,6 +49,12 @@ public class SeatReservation {
 
         }
         return totalPrice; // Placeholder, implement the logic
+    }
+    
+    private static boolean isSeatAvailable(Movie movie, String seatCode, ArrayList<String> reservedSeats) {
+        // Check if the seat is within valid range and not already reserved
+        // Implement the logic to check seat availability
+        return true; // Placeholder, implement the actual logic
     }
     
 

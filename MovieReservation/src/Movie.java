@@ -6,6 +6,8 @@ public class Movie {
     private String title;
     private int length;
 
+
+
     
     @Override
     public String toString() {
@@ -24,7 +26,9 @@ public class Movie {
         this.isPremiere = isPremiere;
         this.title = title;
         this.length = length;
+
     }
+    
     
     public String getDate() {
         return date;
