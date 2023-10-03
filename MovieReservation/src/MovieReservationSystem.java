@@ -1,18 +1,18 @@
 import java.util.List;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\iramonroe.tabora\\Downloads\\Test.csv");
-
+        
         while (true) {
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
             System.out.print("Select an option: ");
 
-            int option = readNumericInput(scanner);
+            int option = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (option) {
                 case 1:
@@ -25,20 +25,15 @@ public class MovieReservationSystem {
                             System.out.println((i + 1) + ". " + availableDates.get(i));
                         }
 
-                        int dateChoice;
-                        String dateToReserve;
-
-                        do {
-                            System.out.print("Select a date: ");
-                            dateChoice = readNumericInput(scanner);
-
-                            if (dateChoice < 1 || dateChoice > availableDates.size()) {
-                                System.out.println("Invalid date choice. Please try again.");
-                            } else {
-                                dateToReserve = availableDates.get(dateChoice - 1);
-                                break;
-                            }
-                        } while (true);
+                        System.out.print("Select a date: ");
+                        int dateChoice = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+                        if (dateChoice < 1 || dateChoice > availableDates.size()) {
+                            System.out.println("Invalid date choice.");
+                            break;
+                        }
+                        
+                        String dateToReserve = availableDates.get(dateChoice - 1);
 
                         movieSchedule.displayMovieSchedule(dateToReserve);
 
@@ -48,7 +43,7 @@ public class MovieReservationSystem {
                         System.out.println(selectedMovie.toString());
 
                         SeatReservation.reserveSeats(selectedMovie);
-
+                        SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
                         System.err.println("Error: " + e.getMessage());
@@ -60,19 +55,6 @@ public class MovieReservationSystem {
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
-            }
-        }
-    }
-
-    // Method to read numeric input and handle exceptions
-    private static int readNumericInput(Scanner scanner) {
-        while (true) {
-            try {
-                return scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a numeric value.");
-                scanner.nextLine();
-                System.out.print("Select an option: ");
             }
         }
     }
