@@ -12,6 +12,7 @@ public class SeatReservation {
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
     public static int numOfDiscount = 0;
+
     public static void reserveSeats(Movie selectedMovie) {
         Scanner scanner = new Scanner(System.in);
 
@@ -28,10 +29,6 @@ public class SeatReservation {
                 return; // Exit the method
             }
         }
-
-
-
-
 
         // Check seat availability and reserve seats
         ArrayList<String> reservedSeats = new ArrayList<>();
@@ -69,7 +66,7 @@ public class SeatReservation {
         System.out.println("Total Price: " + totalPrice + " PHP");
 
         // Save reservation to CSV
-        saveReservationToCSV(selectedMovie, reservedSeats);
+        // saveReservationToCSV(selectedMovie, reservedSeats);
     }
 
     private static boolean isSeatAvailable(Movie movie, int row, int column) {
@@ -84,6 +81,7 @@ public class SeatReservation {
         double totalPrice = 0;
         if (!movie.isPremiere()) {
             int regularTicketPrice = 350;
+            totalPrice = regularTicketPrice * reservedSeats.size();
             discount = (discount*regularTicketPrice) * 0.20;
             totalPrice = (regularTicketPrice * reservedSeats.size()) - discount;
             // Apply senior citizen discount if necessary
@@ -135,45 +133,45 @@ public class SeatReservation {
         return true;
     }
 
-    private static void saveReservationToCSV(Movie selectedMovie, ArrayList<String> reservedSeats) {
-    try {
-        // Generate a unique reservation number (you can implement your logic for this)
-        String reservationNumber = generateReservationNumber();
+//     private static void saveReservationToCSV(Movie selectedMovie, ArrayList<String> reservedSeats) {
+//     try {
+//         // Generate a unique reservation number (you can implement your logic for this)
+//         String reservationNumber = generateReservationNumber();
 
-        // Get the current date and time
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date currentDate = new Date();
-        String reservationDate = dateFormat.format(currentDate);
+//         // Get the current date and time
+//         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//         Date currentDate = new Date();
+//         String reservationDate = dateFormat.format(currentDate);
 
-        // Cinema number and time of the movie (you can get these from the selected movie)
-        int cinemaNumber = selectedMovie.getCinemaNumber();
-        String movieTime = selectedMovie.getTime();
+//         // Cinema number and time of the movie (you can get these from the selected movie)
+//         int cinemaNumber = selectedMovie.getCinemaNumber();
+//         String movieTime = selectedMovie.getTime();
 
-        String fileName = "reservations.csv";
+//         String fileName = "reservations.csv";
         
-        boolean fileExists = new File(fileName).exists();
-        FileWriter writer = new FileWriter(fileName, true);
+//         boolean fileExists = new File(fileName).exists();
+//         FileWriter writer = new FileWriter(fileName, true);
 
-        // Add column headers if the file is empty (for the first row)
-        if (!fileExists) {
-            writer.write("Reservation Number,Reservation Date,Cinema Number,Movie Time,Reserved Seats,Total Price,Movie Title\n");
-        }
+//         // Add column headers if the file is empty (for the first row)
+//         if (!fileExists) {
+//             writer.write("Reservation Number,Reservation Date,Cinema Number,Movie Time,Reserved Seats,Total Price,Movie Title\n");
+//         }
 
-        // Concatenate reserved seats into a single string
-        String reservedSeatsStr = String.join(", ", reservedSeats);
+//         // Concatenate reserved seats into a single string
+//         String reservedSeatsStr = String.join(", ", reservedSeats);
 
-        // Write reservation details to the CSV file
-        String reservationDetails = String.format("%s,%s,%d,%s,\"%s\",%.2f,%s%n",
-                reservationNumber, reservationDate, cinemaNumber, movieTime,
-                reservedSeatsStr, calculateTotalPrice(selectedMovie, reservedSeats), selectedMovie.getTitle());
-        writer.write(reservationDetails);
+//         // Write reservation details to the CSV file
+//         String reservationDetails = String.format("%s,%s,%d,%s,\"%s\",%.2f,%s%n",
+//                 reservationNumber, reservationDate, cinemaNumber, movieTime,
+//                 reservedSeatsStr, calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount ), selectedMovie.getTitle());
+//         writer.write(reservationDetails);
 
-        writer.close();
-        System.out.println("Reservation details saved to " + fileName);
-    } catch (IOException e) {
-        System.err.println("Error saving reservation details to CSV file.");
-    }
-}
+//         writer.close();
+//         System.out.println("Reservation details saved to " + fileName);
+//     } catch (IOException e) {
+//         System.err.println("Error saving reservation details to CSV file.");
+//     }
+// }
 
     
 

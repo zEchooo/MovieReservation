@@ -4,11 +4,7 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
-
-        // Load movies from a CSV file using CSVHandler
-
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\iramonroe.tabora\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("c:\\Users\\kmagday\\Downloads\\Test.csv");
         
         while (true) {
             System.out.println("1. Reserve Seats");
@@ -50,7 +46,7 @@ public class MovieReservationSystem {
                         SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
-                        System.err.println("Error: " + e.getMessage());
+                        //System.err.println("Error: " + e.getMessage());
                     }
                     break;
                 case 2:
