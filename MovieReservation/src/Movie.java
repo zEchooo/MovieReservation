@@ -5,6 +5,7 @@ public class Movie {
     private boolean isPremiere;
     private String title;
     private int length;
+
     
     @Override
     public String toString() {

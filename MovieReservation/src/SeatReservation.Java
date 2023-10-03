@@ -44,7 +44,18 @@ public class SeatReservation {
 
     private static double calculateTotalPrice(Movie movie, ArrayList<String> reservedSeats) {
         // Calculate total price based on movie type and selected seats
-        // Apply senior citizen discount if necessary
-        return 0; // Placeholder, implement the logic
+        double totalPrice = 0;
+        if(!movie.isPremiere()){
+            int regularTicketPrice = 350;
+
+            totalPrice = regularTicketPrice * reservedSeats.size();
+
+            // Apply senior citizen discount if necessary
+
+        }
+        return totalPrice; // Placeholder, implement the logic
     }
+    
+
+
 }

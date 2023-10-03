@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kmagday\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
 
         // Load movies from a CSV file using CSVHandler
 
@@ -25,8 +25,11 @@ public class MovieReservationSystem {
                     System.out.println("Select movie: ");
                     int choice = scanner.nextInt();
                     Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve,choice);
-                    
                     System.out.println(selectedMovie.toString());
+                    
+                    SeatReservation.reserveSeats(selectedMovie);
+
+
                 } catch (Exception e) {
                     // TODO: handle exception
                 }
