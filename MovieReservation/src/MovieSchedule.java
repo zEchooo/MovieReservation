@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class MovieSchedule {
     private ArrayList<Movie> movies;
@@ -66,6 +69,13 @@ public class MovieSchedule {
             }
         }
         return null; // Index out of bounds or no movie found for the specified date
+    }
+    public List<String> getAvailableDates() {
+        Set<String> uniqueDates = new HashSet<>();
+        for (Movie movie : movies) {
+            uniqueDates.add(movie.getDate());
+        }
+        return new ArrayList<>(uniqueDates);
     }
     
 }
