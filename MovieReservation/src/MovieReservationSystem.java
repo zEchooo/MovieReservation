@@ -12,6 +12,7 @@ public class MovieReservationSystem {
         while (true) {
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
+            System.out.println("3. Exit");
             System.out.print("Select an option: ");
 
             int option = readNumericInput(scanner);
