@@ -57,22 +57,53 @@ public class SeatReservation {
                     i--; // Decrement to re-enter seat code
                 }
             }
+            
+            System.out.println("Selected Seats: " + String.join(", ", reservedSeats));
+            int confirmation = -1; // Initialize to an invalid value
 
-            // Calculate total price based on movie type and senior citizen discount
-            double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount);
+            while (confirmation != 0 && confirmation != 1) {
+                System.out.print("Do you want to proceed with the reservation? [1] Yes | [0] No: ");
+                
+                // Check if the input is an integer
+                if (scanner.hasNextInt()) {
+                    confirmation = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    
+                    if (confirmation == 1) {
+                        // Calculate total price based on movie type and senior citizen discount
+                        double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount);
+                        
+                        // Generate a ticket number
+                        String ticketNumber = generateTicketNumber();
+                        
+                        // Display reservation details
+                        System.out.println("Reservation successful for " + selectedMovie.getTitle());
+                        System.out.println("Reservation ticket number: " + ticketNumber);
+                        System.out.println("Reserved Seats: " + String.join(", ", reservedSeats));
+                        System.out.println("Total Price: " + totalPrice + " PHP");
+                        selectedMovie.setTotalPrice(totalPrice);
+                        
+                        // Save reservation to CSV
+                        saveReservationToCSV(ticketNumber, selectedMovie.getDate(), selectedMovie.getCinemaNumber(), selectedMovie.getTime(), reservedSeats, totalPrice);
+                    } else if (confirmation == 0) {
+                        // User opted not to proceed with the reservation
+                        System.out.println("Reservation canceled.");
+                        // Restore the seats to available status
+                        for (String seatCode : reservedSeats) {
+                            int row = seatCode.charAt(0) - 'A';
+                            int column = Integer.parseInt(seatCode.substring(1)) - 1;
+                            selectedMovie.getSeats()[row][column] = false; // Mark the seat as available again
+                        }
+                    } else {
+                        System.out.println("Invalid input. [1] Yes | [0] No: ");
+                    }
+                } else {
+                    System.out.println("Invalid input. [1] Yes | [0] No: ");
+                    scanner.nextLine(); // Consume invalid input
+                }
+            }
+        }
 
-            // Display reservation details
-            System.out.println("Reservation successful for " + selectedMovie.getTitle());
-            System.out.println("Reserved Seats: " + String.join(", ", reservedSeats));
-            System.out.println("Total Price: " + totalPrice + " PHP");
-            selectedMovie.setTotalPrice(totalPrice);
-
-            // Save reservation to CSV
-        // Generate a ticket number (you can use your own logic)
-        String ticketNumber = generateTicketNumber();
-
-        // Save reservation to CSV
-        saveReservationToCSV(ticketNumber, selectedMovie.getDate(), selectedMovie.getCinemaNumber(), selectedMovie.getTime(), reservedSeats, totalPrice);        }
 
     private static boolean isSeatAvailable(Movie movie, int row, int column) {
         if (row >= 0 && row < NUM_ROWS && column >= 0 && column < NUM_COLUMNS) {
