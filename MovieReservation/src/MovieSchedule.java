@@ -77,5 +77,13 @@ public class MovieSchedule {
         }
         return new ArrayList<>(uniqueDates);
     }
-    
+    public int getNumberOfElements(String dateToReserve) {
+        int count = 0;
+        for (Movie movie : movies) {
+            if (movie.getDate().equals(dateToReserve)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

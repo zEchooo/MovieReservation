@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\jericho.martin\\Downloads\\MovieSchedule.csv");
-        
+
+        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\daniel.yu\\Downloads\\Test.csv");
 
         while (true) {
             System.out.println("1. Reserve Seats");
@@ -39,14 +39,26 @@ public class MovieReservationSystem {
                         String dateToReserve = availableDates.get(dateChoice - 1);
 
                         movieSchedule.displayMovieSchedule(dateToReserve);
-
+                        do{
                         System.out.println("Select movie: ");
-                        int choice = readNumericInput(scanner);
-                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
-                        System.out.println(selectedMovie.toString());
 
-                        SeatReservation.reserveSeats(selectedMovie);
+                        int choice = readNumericInput(scanner);
+                        if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
+                        {
+                            System.out.println("Invalid input. Please try again");
+                        }
+                        else{
+                            Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
+                            System.out.println(selectedMovie.toString());
+                
+                            SeatReservation.reserveSeats(selectedMovie);
+                            
+                            break;
+                        }
                         //SeatReservation.updateSeatAvailability(selectedMovie);
+                        }while(true);
+                        
+                        
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());
