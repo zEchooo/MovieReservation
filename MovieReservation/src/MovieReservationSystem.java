@@ -7,7 +7,7 @@ public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\daniel.yu\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\sophia.sansan\\Downloads\\Test.csv");
 
         while (true) {
             System.out.println("1. Reserve Seats");
@@ -74,6 +74,9 @@ public class MovieReservationSystem {
                     System.out.println("Input Ticket Number: ");
                     
                     break;
+                case 3:
+                    System.out.println("Exiting the program.");
+                    System.exit(0); // Exit the program
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
