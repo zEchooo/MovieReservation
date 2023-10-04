@@ -184,6 +184,36 @@ public class SeatReservation {
             System.err.println("Error saving reservation details to CSV: " + e.getMessage());
         }
     }
+    
+    public static void cancelReservation(String ticketNumber) {
+        String csvFilePath = "reservations.csv"; // Change to your desired file path
+
+        // Read all lines from the CSV file, except the one with the specified ticket number
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            StringBuilder updatedContent = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 6) {
+                    String currentTicketNumber = parts[0].trim();
+                    if (!currentTicketNumber.equals(ticketNumber)) {
+                        updatedContent.append(line).append("\n");
+                    }
+                }
+            }
+
+            // Write the updated content back to the CSV file
+            try (FileWriter writer = new FileWriter(csvFilePath)) {
+                writer.write(updatedContent.toString());
+                System.out.println("Reservation with Ticket Number " + ticketNumber + " canceled.");
+            } catch (IOException e) {
+                System.err.println("Error writing to CSV file: " + e.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from CSV file: " + e.getMessage());
+        }
+    }
 
     // Generate a unique ticket number (you can implement your own logic)
     private static String generateTicketNumber() {

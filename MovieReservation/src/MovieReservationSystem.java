@@ -54,8 +54,9 @@ public class MovieReservationSystem {
                     break;
                 case 2:
                     System.out.println("Cancel Reservation");
-                    System.out.println("Input Ticket Number: ");
-                    
+                    System.out.print("Input Ticket Number: ");
+                    String ticketNumber = scanner.nextLine().trim();
+                    SeatReservation.cancelReservation(ticketNumber); // Call the cancelReservation method from SeatReservation class
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
