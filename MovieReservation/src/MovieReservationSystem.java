@@ -13,6 +13,7 @@ public class MovieReservationSystem {
             System.out.println("Welcome to Cinema World!");
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
+            System.out.println("3. Exit");
             System.out.print("Select an option: ");
 
             int option = readNumericInput(scanner);
@@ -75,6 +76,9 @@ public class MovieReservationSystem {
                     System.out.println("Input Ticket Number: ");
                     
                     break;
+                case 3:
+                    System.out.println("Exiting the program.");
+                    System.exit(0); // Exit the program
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
