@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\daniel.yu\\Downloads\\Test.csv");
         
 
         while (true) {
@@ -38,14 +38,25 @@ public class MovieReservationSystem {
                         String dateToReserve = availableDates.get(dateChoice - 1);
 
                         movieSchedule.displayMovieSchedule(dateToReserve);
-
+                        do{
                         System.out.println("Select movie: ");
                         int choice = scanner.nextInt();
-                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
-                        System.out.println(selectedMovie.toString());
+                        if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
+                        {
+                            System.out.println("Invalid input. Please try again");
+                        }
+                        else{
+                            Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
+                            System.out.println(selectedMovie.toString());
 
-                        SeatReservation.reserveSeats(selectedMovie);
+                            SeatReservation.reserveSeats(selectedMovie);
+                            
+                            break;
+                        }
                         //SeatReservation.updateSeatAvailability(selectedMovie);
+                        }while(true);
+                        
+                        
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());
