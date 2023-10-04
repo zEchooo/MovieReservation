@@ -27,37 +27,42 @@ public class MovieReservationSystem {
                         for (int i = 0; i < availableDates.size(); i++) {
                             System.out.println((i + 1) + ". " + availableDates.get(i));
                         }
-
+                        do{
                         System.out.print("Select a date: ");
                         int dateChoice = readNumericInput(scanner);
+
                         scanner.nextLine(); // Consume newline
-                        if (dateChoice < 1 || dateChoice > availableDates.size()) {
-                            System.out.println("Invalid date choice.");
-                            break;
-                        }
-                        
-                        String dateToReserve = availableDates.get(dateChoice - 1);
+                       
+                            if (dateChoice < 1 || dateChoice > availableDates.size()) {
+                            System.out.println("Invalid date choice. Please try again");
+                            }
+                            else{
+                            String dateToReserve = availableDates.get(dateChoice - 1);
+                            movieSchedule.displayMovieSchedule(dateToReserve);
+                                
+                            do{
+                                System.out.println("Select movie: ");
 
-                        movieSchedule.displayMovieSchedule(dateToReserve);
-                        do{
-                        System.out.println("Select movie: ");
-
-                        int choice = readNumericInput(scanner);
-                        if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
-                        {
-                            System.out.println("Invalid input. Please try again");
-                        }
-                        else{
-                            Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
-                            System.out.println(selectedMovie.toString());
-                
-                            SeatReservation.reserveSeats(selectedMovie);
+                                int choice = readNumericInput(scanner);
+                                if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
+                                {
+                                    System.out.println("Invalid input. Please try again");
+                                }
+                                    else{
+                                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
+                                        System.out.println(selectedMovie.toString());
                             
-                            break;
-                        }
-                        //SeatReservation.updateSeatAvailability(selectedMovie);
+                                        SeatReservation.reserveSeats(selectedMovie);
+                                        
+                                        break;
+                                    }
+                            
+                            //SeatReservation.updateSeatAvailability(selectedMovie);
+                                }while(true);
+                            }
                         }while(true);
-                        
+                       
+
                         
                     } catch (Exception e) {
                         // Handle exception
