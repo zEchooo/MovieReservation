@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 public class SeatReservation {
  
@@ -13,61 +14,65 @@ public class SeatReservation {
     private static final int NUM_COLUMNS = 5;
     public static int numOfDiscount = 0;
 
-    public static void reserveSeats(Movie selectedMovie) {
-        Scanner scanner = new Scanner(System.in);
+        public static void reserveSeats(Movie selectedMovie) {
+            Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the number of seats to reserve:");
-        int numSeatsToReserve = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+            System.out.println("Enter the number of seats to reserve:");
+            int numSeatsToReserve = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
-        if(!selectedMovie.isPremiere()){
-            System.out.println("Enter number of senior citizen: ");
-            numOfDiscount = scanner.nextInt();
-            scanner.nextLine();
-            if (numOfDiscount > numSeatsToReserve) {
-                System.out.println("Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve.");
-                return; // Exit the method
+            if(!selectedMovie.isPremiere()){
+                System.out.println("Enter number of senior citizen: ");
+                numOfDiscount = scanner.nextInt();
+                scanner.nextLine();
+                if (numOfDiscount > numSeatsToReserve) {
+                    System.out.println("Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve.");
+                    return; // Exit the method
+                }
             }
-        }
 
-        // Check seat availability and reserve seats
-        ArrayList<String> reservedSeats = new ArrayList<>();
+            // Check seat availability and reserve seats
+            ArrayList<String> reservedSeats = new ArrayList<>();
 
-        displayAvailableSeats(selectedMovie);
+            displayAvailableSeats(selectedMovie);
 
-        for (int i = 0; i < numSeatsToReserve; i++) {
-            System.out.print("Enter seat code (e.g., A1, B3): ");
-            String seatCode = scanner.nextLine().trim().toUpperCase();
+            for (int i = 0; i < numSeatsToReserve; i++) {
+                System.out.print("Enter seat code (e.g., A1, B3): ");
+                String seatCode = scanner.nextLine().trim().toUpperCase();
 
-            // Check if the seat code is valid (within the rows and columns of the movie)
-            if (isValidSeatCode(seatCode)) {
-                int row = seatCode.charAt(0) - 'A';
-                int column = Integer.parseInt(seatCode.substring(1)) - 1;
+                // Check if the seat code is valid (within the rows and columns of the movie)
+                if (isValidSeatCode(seatCode)) {
+                    int row = seatCode.charAt(0) - 'A';
+                    int column = Integer.parseInt(seatCode.substring(1)) - 1;
 
-                if (isSeatAvailable(selectedMovie, row, column)) {
-                    selectedMovie.getSeats()[row][column] = true; // Mark the seat as reserved
-                    reservedSeats.add(seatCode);
+                    if (isSeatAvailable(selectedMovie, row, column)) {
+                        selectedMovie.getSeats()[row][column] = true; // Mark the seat as reserved
+                        reservedSeats.add(seatCode);
+                    } else {
+                        System.out.println("Seat " + seatCode + " is already reserved or invalid.");
+                        i--; // Decrement to re-enter seat code
+                    }
                 } else {
-                    System.out.println("Seat " + seatCode + " is already reserved or invalid.");
+                    System.out.println("Invalid seat code format. Please enter a valid seat code (e.g., A1, B3).");
                     i--; // Decrement to re-enter seat code
                 }
-            } else {
-                System.out.println("Invalid seat code format. Please enter a valid seat code (e.g., A1, B3).");
-                i--; // Decrement to re-enter seat code
             }
-        }
 
-        // Calculate total price based on movie type and senior citizen discount
-        double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount);
+            // Calculate total price based on movie type and senior citizen discount
+            double totalPrice = calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount);
 
-        // Display reservation details
-        System.out.println("Reservation successful for " + selectedMovie.getTitle());
-        System.out.println("Reserved Seats: " + String.join(", ", reservedSeats));
-        System.out.println("Total Price: " + totalPrice + " PHP");
+            // Display reservation details
+            System.out.println("Reservation successful for " + selectedMovie.getTitle());
+            System.out.println("Reserved Seats: " + String.join(", ", reservedSeats));
+            System.out.println("Total Price: " + totalPrice + " PHP");
+            selectedMovie.setTotalPrice(totalPrice);
+
+            // Save reservation to CSV
+        // Generate a ticket number (you can use your own logic)
+        String ticketNumber = generateTicketNumber();
 
         // Save reservation to CSV
-        // saveReservationToCSV(selectedMovie, reservedSeats);
-    }
+        saveReservationToCSV(ticketNumber, selectedMovie.getDate(), selectedMovie.getCinemaNumber(), selectedMovie.getTime(), reservedSeats, totalPrice);        }
 
     private static boolean isSeatAvailable(Movie movie, int row, int column) {
         if (row >= 0 && row < NUM_ROWS && column >= 0 && column < NUM_COLUMNS) {
@@ -132,94 +137,64 @@ public class SeatReservation {
 
         return true;
     }
+    private static void saveReservationToCSV(String ticketNumber, String date, int cinemaNumber, String time, ArrayList<String> reservedSeats, double totalPrice) {
+        String csvFilePath = "reservations.csv"; // Change to your desired file path
 
-//     private static void saveReservationToCSV(Movie selectedMovie, ArrayList<String> reservedSeats) {
-//     try {
-//         // Generate a unique reservation number (you can implement your logic for this)
-//         String reservationNumber = generateReservationNumber();
-
-//         // Get the current date and time
-//         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//         Date currentDate = new Date();
-//         String reservationDate = dateFormat.format(currentDate);
-
-//         // Cinema number and time of the movie (you can get these from the selected movie)
-//         int cinemaNumber = selectedMovie.getCinemaNumber();
-//         String movieTime = selectedMovie.getTime();
-
-//         String fileName = "reservations.csv";
-        
-//         boolean fileExists = new File(fileName).exists();
-//         FileWriter writer = new FileWriter(fileName, true);
-
-//         // Add column headers if the file is empty (for the first row)
-//         if (!fileExists) {
-//             writer.write("Reservation Number,Reservation Date,Cinema Number,Movie Time,Reserved Seats,Total Price,Movie Title\n");
-//         }
-
-//         // Concatenate reserved seats into a single string
-//         String reservedSeatsStr = String.join(", ", reservedSeats);
-
-//         // Write reservation details to the CSV file
-//         String reservationDetails = String.format("%s,%s,%d,%s,\"%s\",%.2f,%s%n",
-//                 reservationNumber, reservationDate, cinemaNumber, movieTime,
-//                 reservedSeatsStr, calculateTotalPrice(selectedMovie, reservedSeats, numOfDiscount ), selectedMovie.getTitle());
-//         writer.write(reservationDetails);
-
-//         writer.close();
-//         System.out.println("Reservation details saved to " + fileName);
-//     } catch (IOException e) {
-//         System.err.println("Error saving reservation details to CSV file.");
-//     }
-// }
-
-    
-
-    private static String generateReservationNumber() {
-        // Implement your logic to generate a unique reservation number (e.g., using timestamps)
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date currentDate = new Date();
-        return dateFormat.format(currentDate);
+        try (FileWriter writer = new FileWriter(csvFilePath, true)) {
+            // Append reservation details to the CSV file
+            writer.append("\"" + ticketNumber + "\",");
+            writer.append("\"" + date + "\",");
+            writer.append("\"" + cinemaNumber + "\",");
+            writer.append("\"" + time + "\",");
+            writer.append("\"" + String.join(",", reservedSeats) + "\",");
+            writer.append("\"" + String.format("%.2f", totalPrice) + "\"\n");
+            System.out.println("Reservation details saved to " + csvFilePath);
+        } catch (IOException e) {
+            System.err.println("Error saving reservation details to CSV: " + e.getMessage());
+        }
     }
 
-    public static ArrayList<String> loadReservationsFromCSV() {
-        ArrayList<String> reservations = new ArrayList<>();
-        String fileName = "reservations.csv";
+    // Generate a unique ticket number (you can implement your own logic)
+    private static String generateTicketNumber() {
+        // Generate a ticket number based on date and a random number
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String formattedDate = dateFormat.format(new Date());
+        
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000000); // Generate a random 6-digit number
+        
+        return formattedDate + String.format("%06d", randomNumber);
+    }
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+    public static ArrayList<Movie> loadReservationsFromCSV(String csvFilePath) {
+        ArrayList<Movie> reservations = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
-
-            // Skip the header row
-            reader.readLine();
-
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                String reservedSeats = parts[4]; // Index 4 corresponds to the reserved seats column
-                reservations.add(reservedSeats);
-            }
+                if (parts.length == 6) {
+                    String date = parts[1].trim();
+                    int cinemaNumber = Integer.parseInt(parts[2].trim());
+                    String time = parts[3].trim();
+                    String[] seatCodes = parts[4].trim().split("\\s*,\\s*");
+                    double price = Double.parseDouble(parts[5].trim());
 
-            reader.close();
+                    // Find the corresponding movie in the reservations ArrayList
+                    for (Movie movie : reservations) {
+                        if (movie.getDate().equals(date) && movie.getCinemaNumber() == cinemaNumber
+                                && movie.getTime().equals(time)) {
+                            // Add seat codes and price to the movie
+                        
+                            break;
+                        }
+                    }
+                }
+            }
         } catch (IOException e) {
-            System.err.println("Error loading reservations from CSV file.");
+            System.err.println("Error loading reservations from CSV file: " + e.getMessage());
         }
 
         return reservations;
-    }
-
-    public static void updateSeatAvailability(Movie selectedMovie) {
-        ArrayList<String> reservations = loadReservationsFromCSV();
-        boolean[][] seats = selectedMovie.getSeats();
-
-        for (String reservedSeats : reservations) {
-            String[] seatCodes = reservedSeats.split(", ");
-            for (String seatCode : seatCodes) {
-                int row = seatCode.charAt(0) - 'A';
-                int column = Integer.parseInt(seatCode.substring(1)) - 1;
-                if (row >= 0 && row < NUM_ROWS && column >= 0 && column < NUM_COLUMNS) {
-                    seats[row][column] = true; // Mark the seat as reserved
-                }
-            }
-        }
     }
 }

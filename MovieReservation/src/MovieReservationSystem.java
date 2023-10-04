@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("c:\\Users\\kmagday\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\kier.magday\\Downloads\\Test.csv");
         
+
         while (true) {
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
@@ -43,7 +45,7 @@ public class MovieReservationSystem {
                         System.out.println(selectedMovie.toString());
 
                         SeatReservation.reserveSeats(selectedMovie);
-                        SeatReservation.updateSeatAvailability(selectedMovie);
+                        //SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());

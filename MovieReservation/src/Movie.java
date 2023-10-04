@@ -8,6 +8,8 @@ public class Movie {
     private boolean[][] seats;
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
+    private double totalPrice;
+
     @Override
     public String toString() {
         return "Date: " + date +
@@ -26,7 +28,6 @@ public class Movie {
         this.title = title;
         this.length = length;
         this.seats = new boolean[NUM_ROWS][NUM_COLUMNS]; // Initialize the seat availability
-
     }
     
     
@@ -68,5 +69,14 @@ public class Movie {
     }
     public boolean[][] getSeats() {
         return seats;
+    }
+    public boolean[][] setSeats() {
+        return this.seats;
+    }
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+    public double setTotalPrice(Double totalPrice) {
+        return this.totalPrice;
     }
 }
