@@ -21,14 +21,15 @@ public class SeatReservation {
             int numSeatsToReserve = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
-            if(!selectedMovie.isPremiere()){
-                System.out.println("Enter number of senior citizen: ");
-                numOfDiscount = scanner.nextInt();
-                scanner.nextLine();
-                if (numOfDiscount > numSeatsToReserve) {
-                    System.out.println("Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve.");
-                    return; // Exit the method
-                }
+            if (!selectedMovie.isPremiere()) {
+                do {
+                    System.out.println("Enter number of senior citizens: ");
+                    numOfDiscount = scanner.nextInt();
+                    scanner.nextLine();
+                    if (numOfDiscount > numSeatsToReserve) {
+                        System.out.println("Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve.");
+                    }
+                } while (numOfDiscount > numSeatsToReserve);
             }
 
             // Check seat availability and reserve seats

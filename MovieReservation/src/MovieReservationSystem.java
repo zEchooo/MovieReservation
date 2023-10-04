@@ -7,9 +7,10 @@ public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\daniel.yu\\Downloads\\Test.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule.csv");
 
         while (true) {
+            System.out.println("Welcome to Cinema World!");
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
             System.out.print("Select an option: ");
