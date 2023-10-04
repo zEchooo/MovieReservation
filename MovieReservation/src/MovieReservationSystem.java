@@ -68,7 +68,7 @@ public class MovieReservationSystem {
             try {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a numeric value.");
+                System.out.println("Invalid input. Please try again.");
                 scanner.nextLine();
                 System.out.print("Select an option: ");
             }
