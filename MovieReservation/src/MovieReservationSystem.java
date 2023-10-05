@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MovieSchedule movieSchedule = new MovieSchedule("C:\\Users\\jericho.martin\\Downloads\\MovieSchedule.csv");
-        
+
+        MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule.csv");
 
         while (true) {
+            System.out.println("Welcome to Cinema World!");
             System.out.println("1. Reserve Seats");
             System.out.println("2. Cancel Reservation");
+            System.out.println("3. Exit");
             System.out.print("Select an option: ");
 
             int option = readNumericInput(scanner);
@@ -27,26 +29,43 @@ public class MovieReservationSystem {
                         for (int i = 0; i < availableDates.size(); i++) {
                             System.out.println((i + 1) + ". " + availableDates.get(i));
                         }
-
+                        do{
                         System.out.print("Select a date: ");
                         int dateChoice = readNumericInput(scanner);
+
                         scanner.nextLine(); // Consume newline
-                        if (dateChoice < 1 || dateChoice > availableDates.size()) {
-                            System.out.println("Invalid date choice.");
-                            break;
-                        }
+                       
+                            if (dateChoice < 1 || dateChoice > availableDates.size()) {
+                            System.out.println("Invalid date choice. Please try again");
+                            }
+                            else{
+                            String dateToReserve = availableDates.get(dateChoice - 1);
+                            movieSchedule.displayMovieSchedule(dateToReserve);
+                                
+                            do{
+                                System.out.println("Select movie: ");
+
+                                int choice = readNumericInput(scanner);
+                                if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
+                                {
+                                    System.out.println("Invalid input. Please try again");
+                                }
+                                    else{
+                                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
+                                        System.out.println(selectedMovie.toString());
+                            
+                                        SeatReservation.reserveSeats(selectedMovie);
+                                        
+                                        break;
+                                    }
+                            
+                            //SeatReservation.updateSeatAvailability(selectedMovie);
+                                }while(true);
+                            }
+                        }while(true);
+                       
+
                         
-                        String dateToReserve = availableDates.get(dateChoice - 1);
-
-                        movieSchedule.displayMovieSchedule(dateToReserve);
-
-                        System.out.println("Select movie: ");
-                        int choice = readNumericInput(scanner);
-                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
-                        System.out.println(selectedMovie.toString());
-
-                        SeatReservation.reserveSeats(selectedMovie);
-                        //SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());
@@ -54,10 +73,12 @@ public class MovieReservationSystem {
                     break;
                 case 2:
                     System.out.println("Cancel Reservation");
-                    System.out.print("Input Ticket Number: ");
-                    String ticketNumber = scanner.nextLine().trim();
-                    SeatReservation.cancelReservation(ticketNumber); // Call the cancelReservation method from SeatReservation class
+                    System.out.println("Input Ticket Number: ");
+                    
                     break;
+                case 3:
+                    System.out.println("Exiting the program.");
+                    System.exit(0); // Exit the program
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
