@@ -26,15 +26,12 @@ public class Movie {
                 ", Title: " + title +
                 ", Length: " + length + " minutes";
     }
-
     public void addReservation(String ticketNumber, ArrayList<String> reservedSeats) {
         reservations.put(ticketNumber, reservedSeats);
     }
-    
     public Map<String, List<String>> getReservations() {
         return reservations;
     }
-    
     public Movie(String date, int cinemaNumber, String time, boolean isPremiere, String title, int length) {
         this.date = date;
         this.cinemaNumber = cinemaNumber;
