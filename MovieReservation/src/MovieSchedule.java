@@ -41,7 +41,7 @@ public class MovieSchedule {
     }
 
     public void displayMovieSchedule(String dateToDisplay) {
-        System.out.println("\nMovie Schedule for Date: " + dateToDisplay);
+        System.out.println("Movie Schedule for Date: " + dateToDisplay);
         boolean found = false;
         int i = 1;
         for (Movie movie : movies) {
@@ -87,4 +87,6 @@ public class MovieSchedule {
         }
         return count;
     }
+
+    
 }

@@ -233,32 +233,32 @@ public class SeatReservation {
             System.out.println("Reserved Seats for Ticket Number " + ticketNumberToCancel + ": " + String.join(", ", reservedSeats));
 
             // Mark the canceled seats as available again
-            for (String seatCode : reservedSeats) {
-                int row = seatCode.charAt(0) - 'A';
-                int column = Integer.parseInt(seatCode.substring(1)) - 1;
-                movie.getSeats()[row][column] = false; // Mark the seat as available
-            }
-
-            // Remove the ticket number from the movie's reservations
-            reservations.remove(ticketNumberToCancel);
-
-            // Save updated reservation to CSV (implement this part)
-            updateCsvFile("reservations.csv", movies);
-
-            // You should also update the CSV file with the latest reservation information.
-
-            System.out.println("Reservations for Ticket Number " + ticketNumberToCancel + " have been canceled successfully.");
-
-            // Display available seats for the movie
-            displayAvailableSeats(movie);
-
-            return; // Exit the method since the reservations have been canceled
-        }
-    }
-
-    // If the ticket number was not found in any movie, display an error message
-    System.out.println("Ticket Number " + ticketNumberToCancel + " was not found in the reservation records.");
-}
+	            for (String seatCode : reservedSeats) {
+	                int row = seatCode.charAt(0) - 'A';
+	                int column = Integer.parseInt(seatCode.substring(1)) - 1;
+	                movie.getSeats()[row][column] = false; // Mark the seat as available
+	            }
+	
+	            // Remove the ticket number from the movie's reservations
+	            reservations.remove(ticketNumberToCancel);
+	
+	            // Save updated reservation to CSV (implement this part)
+	            updateCsvFile("reservations.csv", movies);
+	
+	            // You should also update the CSV file with the latest reservation information.
+	
+	            System.out.println("Reservations for Ticket Number " + ticketNumberToCancel + " have been canceled successfully.");
+	
+	            // Display available seats for the movie
+	            displayAvailableSeats(movie);
+	
+	            return; // Exit the method since the reservations have been canceled
+	        }
+	    }
+	
+	    // If the ticket number was not found in any movie, display an error message
+	    System.out.println("Ticket Number " + ticketNumberToCancel + " was not found in the reservation records.");
+	}
 
 	public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies) {
 	    try (FileWriter writer = new FileWriter(csvFilePath, false)) { // Use 'false' to overwrite the entire file
