@@ -101,7 +101,3 @@ public class Movie {
         this.ticketNumber = ticketNumber;
     }
 }
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-}
