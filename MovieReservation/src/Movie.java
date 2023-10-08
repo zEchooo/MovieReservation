@@ -17,7 +17,6 @@ public class Movie {
     private String ticketNumber;
     private Map<String, List<String>> reservations; // Use a map to store reservations
     
-
     @Override
     public String toString() {
         return "Date: " + date +
@@ -35,7 +34,6 @@ public class Movie {
         return reservations;
     }
     
-
     public Movie(String date, int cinemaNumber, String time, boolean isPremiere, String title, int length) {
         this.date = date;
         this.cinemaNumber = cinemaNumber;
@@ -48,8 +46,6 @@ public class Movie {
         this.reservations = new HashMap<>(); // Initialize the map of reservations
 
     }
-    
-    
     public String getDate() {
         return date;
     }
@@ -101,10 +97,11 @@ public class Movie {
     public String getTicketNumber() {
         return ticketNumber;
     }
-
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
     }
- 
-
+}
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
 }
