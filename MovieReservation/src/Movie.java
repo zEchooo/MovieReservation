@@ -30,6 +30,7 @@ public class Movie {
     public void addReservation(String ticketNumber, ArrayList<String> reservedSeats) {
         reservations.put(ticketNumber, reservedSeats);
     }
+    
     public Map<String, List<String>> getReservations() {
         return reservations;
     }
@@ -97,10 +98,6 @@ public class Movie {
     public String getTicketNumber() {
         return ticketNumber;
     }
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-}
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
     }
