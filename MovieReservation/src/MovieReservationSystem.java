@@ -10,10 +10,13 @@ public class MovieReservationSystem {
         MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule.csv");
 
         while (true) {
-            System.out.println("Welcome to Cinema World!");
-            System.out.println("1. Reserve Seats");
-            System.out.println("2. Cancel Reservation");
-            System.out.println("3. Exit");
+        	  System.out.println("\n-------------------------------------------------------");
+            System.out.println("\t\tWelcome to Cinema World!");
+            System.out.println("-------------------------------------------------------");
+            System.out.println("    [1] Reserve Seats");
+            System.out.println("    [2] Cancel Reservation");
+            System.out.println("    [3] Exit");
+            System.out.println("-------------------------------------------------------");
             System.out.print("Select an option: ");
 
             int option = readNumericInput(scanner);
@@ -25,47 +28,38 @@ public class MovieReservationSystem {
                         // Get available dates
                         List<String> availableDates = movieSchedule.getAvailableDates();
 
-                        System.out.println("Available dates:");
+                        System.out.println("\nAvailable dates:");
                         for (int i = 0; i < availableDates.size(); i++) {
                             System.out.println((i + 1) + ". " + availableDates.get(i));
                         }
-                        do{
-                        System.out.print("Select a date: ");
-                        int dateChoice = readNumericInput(scanner);
+                        int dateChoice;
+                        do {
+                            System.out.print("Select a date: ");
+                            dateChoice = readNumericInput(scanner);
 
-                        scanner.nextLine(); // Consume newline
-                       
                             if (dateChoice < 1 || dateChoice > availableDates.size()) {
-                            System.out.println("Invalid date choice. Please try again");
+                                System.out.println("Invalid date choice. Please try again.");
                             }
-                            else{
-                            String dateToReserve = availableDates.get(dateChoice - 1);
-                            movieSchedule.displayMovieSchedule(dateToReserve);
-                                
-                            do{
-                                System.out.println("Select movie: ");
+                        } while (dateChoice < 1 || dateChoice > availableDates.size());
 
-                                int choice = readNumericInput(scanner);
-                                if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve))
-                                {
-                                    System.out.println("Invalid input. Please try again");
-                                }
-                                    else{
-                                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
-                                        System.out.println(selectedMovie.toString());
-                            
-                                        SeatReservation.reserveSeats(selectedMovie);
-                                        
-                                        break;
-                                    }
-                            
-                            //SeatReservation.updateSeatAvailability(selectedMovie);
-                                }while(true);
+                        String dateToReserve = availableDates.get(dateChoice - 1);
+                        movieSchedule.displayMovieSchedule(dateToReserve);
+
+                        int choice;
+                        do {
+                            System.out.print("Select movie: ");
+                            choice = readNumericInput(scanner);
+
+                            if (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve)) {
+                                System.out.println("Invalid movie choice. Please try again.");
                             }
-                        }while(true);
-                       
+                        } while (choice < 1 || choice > movieSchedule.getNumberOfElements(dateToReserve));
 
-                        
+                        Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
+                        System.out.println(selectedMovie.toString());
+                      
+                        SeatReservation.reserveSeats(selectedMovie);
+                        //SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());

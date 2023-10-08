@@ -17,13 +17,13 @@ public class SeatReservation {
         public static void reserveSeats(Movie selectedMovie) {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Enter the number of seats to reserve:");
+            System.out.print("\nEnter the number of seats to reserve: ");
             int numSeatsToReserve = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             if (!selectedMovie.isPremiere()) {
                 do {
-                    System.out.println("Enter number of senior citizens: ");
+                    System.out.print("Enter number of senior citizens: ");
                     numOfDiscount = scanner.nextInt();
                     scanner.nextLine();
                     if (numOfDiscount > numSeatsToReserve) {
@@ -63,7 +63,7 @@ public class SeatReservation {
             int confirmation = -1; // Initialize to an invalid value
 
             while (confirmation != 0 && confirmation != 1) {
-                System.out.print("Do you want to proceed with the reservation? [1] Yes | [0] No: ");
+                System.out.print("\nDo you want to proceed with the reservation? [1] Yes | [0] No: ");
                 
                 // Check if the input is an integer
                 if (scanner.hasNextInt()) {
@@ -132,7 +132,7 @@ public class SeatReservation {
     }
 
     private static void displayAvailableSeats(Movie movie) {
-        System.out.println("Available Seats for " + movie.getTitle() + ":");
+        System.out.println("\nAvailable Seats for " + movie.getTitle() + ":");
         boolean[][] seats = movie.getSeats();
 
         for (int row = 0; row < NUM_ROWS; row++) {
