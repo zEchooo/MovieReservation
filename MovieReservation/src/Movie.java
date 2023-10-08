@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Movie {
     private String date;
     private int cinemaNumber;
@@ -9,7 +14,9 @@ public class Movie {
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
     private double totalPrice;
-
+    private String ticketNumber;
+    private Map<String, List<String>> reservations; // Use a map to store reservations
+    
     @Override
     public String toString() {
         return "Date: " + date +
@@ -20,6 +27,13 @@ public class Movie {
                 ", Length: " + length + " minutes";
     }
 
+    public void addReservation(String ticketNumber, ArrayList<String> reservedSeats) {
+        reservations.put(ticketNumber, reservedSeats);
+    }
+    public Map<String, List<String>> getReservations() {
+        return reservations;
+    }
+    
     public Movie(String date, int cinemaNumber, String time, boolean isPremiere, String title, int length) {
         this.date = date;
         this.cinemaNumber = cinemaNumber;
@@ -28,9 +42,10 @@ public class Movie {
         this.title = title;
         this.length = length;
         this.seats = new boolean[NUM_ROWS][NUM_COLUMNS]; // Initialize the seat availability
+        this.totalPrice = 0.0;
+        this.reservations = new HashMap<>(); // Initialize the map of reservations
+
     }
-    
-    
     public String getDate() {
         return date;
     }
@@ -78,5 +93,11 @@ public class Movie {
     }
     public double setTotalPrice(Double totalPrice) {
         return this.totalPrice;
+    }
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
     }
 }

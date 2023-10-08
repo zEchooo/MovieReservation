@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public class MovieSchedule {
@@ -33,8 +32,7 @@ public class MovieSchedule {
                     int length = Integer.parseInt(parts[5].trim());
 
                     Movie movie = new Movie(date, cinemaNumber, time, isPremiere, title, length);
-                    movies.add(movie)
-;
+                    movies.add(movie);
                 }
             }
         } catch (IOException e) {
@@ -77,7 +75,10 @@ public class MovieSchedule {
         }
         return new ArrayList<>(uniqueDates);
     }
-    public int getNumberOfElements(String dateToReserve) {
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+        public int getNumberOfElements(String dateToReserve) {
         int count = 0;
         for (Movie movie : movies) {
             if (movie.getDate().equals(dateToReserve)) {

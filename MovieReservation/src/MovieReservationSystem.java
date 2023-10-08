@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -67,8 +66,9 @@ public class MovieReservationSystem {
                     break;
                 case 2:
                     System.out.println("Cancel Reservation");
-                    System.out.println("Input Ticket Number: ");
-                    
+                    System.out.print("Input Ticket Number: ");
+                    String ticketNumber = scanner.nextLine().trim();
+                    SeatReservation.cancelReservation(movieSchedule, ticketNumber);;
                     break;
                 case 3:
                     System.out.println("Exiting the program.");
