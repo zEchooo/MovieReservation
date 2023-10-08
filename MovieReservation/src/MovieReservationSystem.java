@@ -58,7 +58,6 @@ public class MovieReservationSystem {
                         System.out.println(selectedMovie.toString());
                       
                         SeatReservation.reserveSeats(selectedMovie);
-                        //SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
                         //System.err.println("Error: " + e.getMessage());
