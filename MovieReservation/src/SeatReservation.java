@@ -84,15 +84,15 @@ public class SeatReservation {
             // Ask if the user wants to proceed with the reservation
             int proceedChoice = -1;
             while (proceedChoice != 0 && proceedChoice != 1) {
-                System.out.print("\\nDo you want to proceed with the reservation? [1] Yes | [0] No: ");
+                System.out.print("\nDo you want to proceed with the reservation? [1] Yes | [0] No: ");
                 if (scanner.hasNextInt()) {
                     proceedChoice = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
                     if (proceedChoice != 0 && proceedChoice != 1) {
-                        System.out.println("Invalid input. [1] Yes | [0] No: ");
+                        System.out.println("Invalid input. [1] Yes | [0] No");
                     }
                 } else {
-                    System.out.println("Invalid input. [1] Yes | [0] No: ");
+                    System.out.println("Invalid input. [1] Yes | [0] No");
                     scanner.nextLine(); // Consume invalid input
                 }
             }
@@ -116,6 +116,11 @@ public class SeatReservation {
                 saveReservationToCSV(ticketNumber, selectedMovie.getDate(), selectedMovie.getCinemaNumber(), selectedMovie.getTime(), reservedSeats, totalPrice);
             } else {
                 System.out.println("Reservation canceled.");
+                for (String seatCode : reservedSeats) {
+                    int row = seatCode.charAt(0) - 'A';
+                    int column = Integer.parseInt(seatCode.substring(1)) - 1;
+                    selectedMovie.getSeats()[row][column] = false; // Mark the seat as available again
+                }
             }
         }
 
@@ -196,7 +201,6 @@ public class SeatReservation {
             writer.append("\"" + time + "\",");
             writer.append("\"" + String.join(",", reservedSeats) + "\",");
             writer.append("\"" + String.format("%.2f", totalPrice) + "\"\n");
-            System.out.println("Reservation details saved to " + csvFilePath);
         } catch (IOException e) {
             System.err.println("Error saving reservation details to CSV: " + e.getMessage());
         }
@@ -282,7 +286,6 @@ public class SeatReservation {
 	            }
 	        }
 	
-	        System.out.println("CSV file updated: " + csvFilePath);
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	        System.err.println("Error updating CSV file: " + e.getMessage());
