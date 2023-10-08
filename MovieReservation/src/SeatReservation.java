@@ -203,6 +203,8 @@ public class SeatReservation {
             reservations.remove(ticketNumberToCancel);
 
             // Save updated reservation to CSV (implement this part)
+            updateCsvFile("C:\\Users\\kmagday\\Documents\\GitHub\\MovieReservation\\reservations.csv", movies);
+
             // You should also update the CSV file with the latest reservation information.
 
             System.out.println("Reservations for Ticket Number " + ticketNumberToCancel + " have been canceled successfully.");
@@ -218,5 +220,36 @@ public class SeatReservation {
     System.out.println("Ticket Number " + ticketNumberToCancel + " was not found in the reservation records.");
 }
 
+public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies) {
+    try (FileWriter writer = new FileWriter(csvFilePath, false)) { // Use 'false' to overwrite the entire file
+        // Write CSV header
+        writer.append("Date,Cinema Number,Time,Premiere,Title,Length,Ticket Number,Reserved Seats,Total Price\n");
+
+        for (Movie movie : movies) {
+            Map<String, List<String>> reservations = movie.getReservations();
+            for (Map.Entry<String, List<String>> entry : reservations.entrySet()) {
+                String ticketNumber = entry.getKey();
+                List<String> reservedSeats = entry.getValue();
+                String reservedSeatsStr = String.join(", ", reservedSeats);
+
+                // Write movie and reservation data to CSV
+                writer.append(movie.getDate() + ",");
+                writer.append(movie.getCinemaNumber() + ",");
+                writer.append(movie.getTime() + ",");
+                writer.append(movie.isPremiere() + ",");
+                writer.append(movie.getTitle() + ",");
+                writer.append(movie.getLength() + ",");
+                writer.append("\"" + ticketNumber + "\","); // Enclose ticket number in double quotes
+                writer.append("\"" + reservedSeatsStr + "\","); // Enclose reserved seats in double quotes
+                writer.append("\"" + String.format("%.2f", movie.getTotalPrice()) + "\"\n"); // Enclose total price in double quotes
+            }
+        }
+
+        System.out.println("CSV file updated: " + csvFilePath);
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error updating CSV file: " + e.getMessage());
+    }
+}
     
 }
