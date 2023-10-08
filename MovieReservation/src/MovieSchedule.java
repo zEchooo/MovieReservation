@@ -33,8 +33,7 @@ public class MovieSchedule {
                     int length = Integer.parseInt(parts[5].trim());
 
                     Movie movie = new Movie(date, cinemaNumber, time, isPremiere, title, length);
-                    movies.add(movie)
-;
+                    movies.add(movie);
                 }
             }
         } catch (IOException e) {
@@ -43,7 +42,7 @@ public class MovieSchedule {
     }
 
     public void displayMovieSchedule(String dateToDisplay) {
-        System.out.println("\nMovie Schedule for Date: " + dateToDisplay);
+        System.out.println("Movie Schedule for Date: " + dateToDisplay);
         boolean found = false;
         int i = 1;
         for (Movie movie : movies) {
@@ -77,7 +76,10 @@ public class MovieSchedule {
         }
         return new ArrayList<>(uniqueDates);
     }
-    public int getNumberOfElements(String dateToReserve) {
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+        public int getNumberOfElements(String dateToReserve) {
         int count = 0;
         for (Movie movie : movies) {
             if (movie.getDate().equals(dateToReserve)) {
@@ -86,4 +88,6 @@ public class MovieSchedule {
         }
         return count;
     }
+
+    
 }

@@ -68,7 +68,8 @@ public class MovieReservationSystem {
                 case 2:
                     System.out.println("Cancel Reservation");
                     System.out.println("Input Ticket Number: ");
-                    
+                    String ticketNumber = scanner.nextLine().trim();
+                    SeatReservation.cancelReservation(movieSchedule, ticketNumber);;
                     break;
                 case 3:
                     System.out.println("Exiting the program.");
