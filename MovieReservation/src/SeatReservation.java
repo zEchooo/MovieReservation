@@ -132,15 +132,17 @@ public class SeatReservation {
     }
 
     private static void displayAvailableSeats(Movie movie) {
+    	System.out.println("\nAvailable Seats for " + movie.getTitle() + ":");
         System.out.println("\n\t\t  ******* SCREEN *******");
         System.out.print("Entrance/Exit |");
+        boolean[][] seats = movie.getSeats();
         
         for (int row = 0; row < NUM_ROWS; row++) {
             System.out.print("\n\t      |");
             for (int column = 0; column < NUM_COLUMNS; column++) {
                 String seatCode = String.format("   %c%d", 'A' + row, column + 1);
                 
-                if (movie.getSeats()[row][column]) {
+                if (seats[row][column]) {
                     System.out.print("   XX"); // Seat is reserved
                 } else {
                     System.out.print(seatCode);
