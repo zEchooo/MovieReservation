@@ -10,7 +10,7 @@ public class MovieReservationSystem {
         MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule.csv");
 
         while (true) {
-        	System.out.println("\n-------------------------------------------------------");
+        	  System.out.println("\n-------------------------------------------------------");
             System.out.println("\t\tWelcome to Cinema World!");
             System.out.println("-------------------------------------------------------");
             System.out.println("    [1] Reserve Seats");
@@ -57,7 +57,7 @@ public class MovieReservationSystem {
 
                         Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
                         System.out.println(selectedMovie.toString());
-
+                      
                         SeatReservation.reserveSeats(selectedMovie);
                         //SeatReservation.updateSeatAvailability(selectedMovie);
                     } catch (Exception e) {
