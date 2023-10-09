@@ -6,7 +6,7 @@ public class MovieReservationSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule.csv");
+        MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule_ST.csv");
 
         while (true) {
         	  System.out.println("\n-------------------------------------------------------");

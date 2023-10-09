@@ -9,7 +9,7 @@ public class Movie {
     private String time;
     private boolean isPremiere;
     private String title;
-    private int length;
+    private double length;
     private boolean[][] seats;
     private static final int NUM_ROWS = 8;
     private static final int NUM_COLUMNS = 5;
@@ -32,7 +32,7 @@ public class Movie {
     public Map<String, List<String>> getReservations() {
         return reservations;
     }
-    public Movie(String date, int cinemaNumber, String time, boolean isPremiere, String title, int length) {
+    public Movie(String date, int cinemaNumber, String time, boolean isPremiere, String title, double length) {
         this.date = date;
         this.cinemaNumber = cinemaNumber;
         this.time = time;
@@ -74,10 +74,10 @@ public class Movie {
     public void setTitle(String title) {
         this.title = title;
     }
-    public int getLength() {
+    public double getLength() {
         return length;
     }
-    public void setLength(int length) {
+    public void setLength(double length) {
         this.length = length;
     }
     public boolean[][] getSeats() {

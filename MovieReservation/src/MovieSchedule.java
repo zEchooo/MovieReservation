@@ -24,12 +24,12 @@ public class MovieSchedule {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 6) {
-                    String date = parts[0].trim();
+                String date = parts[0].replace("\"", "").trim();
                     int cinemaNumber = Integer.parseInt(parts[1].trim());
                     String time = parts[2].trim();
                     boolean isPremiere = Boolean.parseBoolean(parts[3].trim());
                     String title = parts[4].trim();
-                    int length = Integer.parseInt(parts[5].trim());
+                    double length = Double.parseDouble(parts[5].trim());
 
                     Movie movie = new Movie(date, cinemaNumber, time, isPremiere, title, length);
                     movies.add(movie);
