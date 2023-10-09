@@ -16,6 +16,7 @@ public class SeatReservation {
     ArrayList<String> reservedSeats = new ArrayList<>();
 
     public static void reserveSeats(Movie selectedMovie) {
+        displayAvailableSeats(selectedMovie);
         Scanner scanner = new Scanner(System.in);
 
         int numSeatsToReserve = -1;
@@ -123,6 +124,8 @@ public class SeatReservation {
             System.out.println("Reserved Seats: " + String.join(", ", reservedSeats));
             System.out.println("Total Price: " + totalPrice + " PHP");
             selectedMovie.setTotalPrice(totalPrice);
+
+            displayAvailableSeats(selectedMovie);
 
             // Save reservation to CSV
             selectedMovie.setTicketNumber(ticketNumber);
