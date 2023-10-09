@@ -26,7 +26,7 @@ public class SeatReservation {
 
         // Keep asking for input until a valid integer is provided
         while (numSeatsToReserve < 0 || numSeatsToReserve > maxAvailableSeats) {
-            System.out.println("\nCinema has " + occupiedSeatsCount + " occupied seats.");
+            System.out.println("\nCinema has " + occupiedSeatsCount + " occupied seats. Full capacity");
             System.out.print("Enter the number of seats to reserve (available: " + maxAvailableSeats + "): ");
 
             // Check if the input is an integer
