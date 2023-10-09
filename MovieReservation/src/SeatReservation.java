@@ -25,49 +25,26 @@ public class SeatReservation {
         int maxAvailableSeats = 40 - occupiedSeatsCount;
 
         // Keep asking for input until a valid integer is provided
-        while (numSeatsToReserve <1 || numSeatsToReserve > maxAvailableSeats) {
+        while (numSeatsToReserve < 1 || numSeatsToReserve > maxAvailableSeats) {
             System.out.println("\nCinema has " + occupiedSeatsCount + " occupied seats.");
             System.out.print("Enter the number of seats to reserve (available: " + maxAvailableSeats + "): ");
-        
+  
             // Check if the input is an integer
             if (scanner.hasNextInt()) {
                 numSeatsToReserve = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
-                if (numSeatsToReserve <= 0) {
-                    System.out.println("Number of seats must be greater than 0. Please try again.");
+                if (numSeatsToReserve < 0) {
+                    System.out.println("Number of seats cannot be negative. Please try again.");
                 } else if (numSeatsToReserve > maxAvailableSeats) {
                     System.out.println("Number of seats cannot exceed the maximum available seats ("
                             + maxAvailableSeats + "). Please try again.");
                 }
             } else {
-                System.out.println("Please enter a valid integer for the number of seats.");
+                System.out.println("Invalid input: Please enter a valid integer for the number of seats.");
                 scanner.nextLine(); // Consume invalid input
             }
         }
-        if (numSeatsToReserve > 0 && !selectedMovie.isPremiere()) {
-            int numOfDiscount = -1; // Initialize to an invalid value
-        
-            // Keep asking for input until a valid integer is provided
-            while (numOfDiscount < 0 || numOfDiscount > numSeatsToReserve) {
-                System.out.print("Enter number of senior citizens: ");
-        
-                // Check if the input is an integer
-                if (scanner.hasNextInt()) {
-                    numOfDiscount = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    if (numOfDiscount < 0) {
-                        System.out
-                                .println("Number of senior citizens cannot be negative. Please try again.");
-                    } else if (numOfDiscount > numSeatsToReserve) {
-                        System.out.println(
-                                "Number of senior citizens cannot be greater than the number of seats to reserve. Please try again.");
-                    }
-                } else {
-                    System.out.println("Please enter a valid integer for the number of senior citizens.");
-                    scanner.nextLine(); // Consume invalid input
-                }
-            }
-        } // Initialize to an invalid value
+        int numOfDiscount = -1; // Initialize to an invalid value
 
         // Keep asking for input until a valid integer is provided
         if(!selectedMovie.isPremiere()){
@@ -80,7 +57,7 @@ public class SeatReservation {
                     scanner.nextLine(); // Consume newline
                     if (numOfDiscount < 0) {
                         System.out
-                                .println("Number of senior citizens cannot be negative. Please try again.");
+                                .println("Invalid input: Number of senior citizens cannot be negative. Please try again.");
                     } else if (numOfDiscount > numSeatsToReserve) {
                         System.out.println(
                                 "Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve. Please try again.");
