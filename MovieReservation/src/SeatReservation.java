@@ -29,7 +29,7 @@ public class SeatReservation {
         while (numSeatsToReserve < 1 || numSeatsToReserve > maxAvailableSeats) {
             System.out.println("\nCinema has " + occupiedSeatsCount + " occupied seats.");
             System.out.print("Enter the number of seats to reserve (available: " + maxAvailableSeats + "): ");
-  
+
             // Check if the input is an integer
             if (scanner.hasNextInt()) {
                 numSeatsToReserve = scanner.nextInt();
@@ -48,28 +48,30 @@ public class SeatReservation {
         int numOfDiscount = -1; // Initialize to an invalid value
 
         // Keep asking for input until a valid integer is provided
-        if(!selectedMovie.isPremiere()){
+        if (!selectedMovie.isPremiere()) {
             while (numOfDiscount < 0 || numOfDiscount > numSeatsToReserve) {
                 System.out.print("Enter number of senior citizens / pwd: ");
-    
+
                 // Check if the input is an integer
                 if (scanner.hasNextInt()) {
                     numOfDiscount = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
                     if (numOfDiscount < 0) {
                         System.out
-                                .println("Invalid input: Number of senior citizens cannot be negative. Please try again.");
+                                .println(
+                                        "Invalid input: Number of senior citizens cannot be negative. Please try again.");
                     } else if (numOfDiscount > numSeatsToReserve) {
                         System.out.println(
                                 "Invalid input: Number of senior citizens cannot be greater than the number of seats to reserve. Please try again.");
                     }
                 } else {
-                    System.out.println("Invalid input: Please enter a valid integer for the number of senior citizens.");
+                    System.out
+                            .println("Invalid input: Please enter a valid integer for the number of senior citizens.");
                     scanner.nextLine(); // Consume invalid input
                 }
             }
         }
-        
+
         // Check seat availability and reserve seats
         ArrayList<String> reservedSeats = new ArrayList<>();
         displayAvailableSeats(selectedMovie);
@@ -167,7 +169,9 @@ public class SeatReservation {
     }
 
     private static void displayAvailableSeats(Movie movie) {
-        System.out.println("\nAvailable Seats for " + movie.getTitle() + ":");
+        System.out.println("\n-------------------------------------------------------");
+        System.out.println("          Available Seats for " + movie.getTitle()+":");
+        System.out.println("-------------------------------------------------------");
         System.out.println("\n\t\t  ******* SCREEN *******");
         System.out.print("Entrance/Exit |");
         boolean[][] seats = movie.getSeats();
@@ -175,10 +179,10 @@ public class SeatReservation {
         for (int row = 0; row < NUM_ROWS; row++) {
             System.out.print("\n\t      |");
             for (int column = 0; column < NUM_COLUMNS; column++) {
-                String seatCode = String.format("   %c%d", 'A' + row, column + 1);
+                String seatCode = String.format("   [%c%d]", 'A' + row, column + 1);
 
                 if (seats[row][column]) {
-                    System.out.print("   XX"); // Seat is reserved
+                    System.out.print("   [XX]"); // Seat is reserved
                 } else {
                     System.out.print(seatCode);
                 }
@@ -285,7 +289,7 @@ public class SeatReservation {
         System.out.println("Ticket Number " + ticketNumberToCancel + " was not found in the reservation records.");
     }
 
-    public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies,String ticketNumberToCancel) {
+    public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies, String ticketNumberToCancel) {
         try (FileWriter writer = new FileWriter(csvFilePath, false)) { // Use 'false' to overwrite the entire file
             // Write CSV header
             writer.append("Ticket Number,Date,Cinema Number,Time,Reserved Seats,Total Price\n");

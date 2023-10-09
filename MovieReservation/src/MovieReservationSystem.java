@@ -9,7 +9,7 @@ public class MovieReservationSystem {
         MovieSchedule movieSchedule = new MovieSchedule("MovieSchedule_ST.csv");
 
         while (true) {
-        	  System.out.println("\n-------------------------------------------------------");
+            System.out.println("\n-------------------------------------------------------");
             System.out.println("\t\tWelcome to Cinema World!");
             System.out.println("-------------------------------------------------------");
             System.out.println("    [1] Reserve Seats");
@@ -27,12 +27,15 @@ public class MovieReservationSystem {
                         // Get available dates
                         List<String> availableDates = movieSchedule.getAvailableDates();
 
-                        System.out.println("\nAvailable dates:");
+                        System.out.println("\n-------------------------------------------------------");
+                        System.out.println("          Available Dates for Movie Selection");
+                        System.out.println("-------------------------------------------------------");
                         for (int i = 0; i < availableDates.size(); i++) {
-                            System.out.println((i + 1) + ". " + availableDates.get(i));
+                            System.out.println("  [" + (i + 1) + "] " + availableDates.get(i));
                         }
                         int dateChoice;
                         do {
+                            System.out.println("-------------------------------------------------------");
                             System.out.print("Select a date: ");
                             dateChoice = readNumericInput(scanner);
 
@@ -56,18 +59,19 @@ public class MovieReservationSystem {
 
                         Movie selectedMovie = movieSchedule.getMovieByIndex(dateToReserve, choice);
                         System.out.println(selectedMovie.toString());
-                      
+
                         SeatReservation.reserveSeats(selectedMovie);
                     } catch (Exception e) {
                         // Handle exception
-                        //System.err.println("Error: " + e.getMessage());
+                        // System.err.println("Error: " + e.getMessage());
                     }
                     break;
                 case 2:
                     System.out.println("Cancel Reservation");
                     System.out.print("Input Ticket Number: ");
                     String ticketNumber = scanner.nextLine().trim();
-                    SeatReservation.cancelReservation(movieSchedule, ticketNumber);;
+                    SeatReservation.cancelReservation(movieSchedule, ticketNumber);
+                    ;
                     break;
                 case 3:
                     System.out.println("Exiting the program.");
@@ -77,7 +81,7 @@ public class MovieReservationSystem {
             }
         }
     }
-    
+
     private static int readNumericInput(Scanner scanner) {
         while (true) {
             try {

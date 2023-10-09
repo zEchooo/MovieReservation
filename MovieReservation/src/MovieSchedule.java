@@ -42,12 +42,16 @@ public class MovieSchedule {
     }
 
     public void displayMovieSchedule(String dateToDisplay) {
-        System.out.println("\nMovie Schedule for Date: " + dateToDisplay);
+        System.out.println("-------------------------------------------------------");
+        System.out.println("             Movie Schedule for Date: " + dateToDisplay);
+        System.out.println("-------------------------------------------------------");
         boolean found = false;
         int i = 1;
         for (Movie movie : movies) {
             if (movie.getDate().equals(dateToDisplay)) {
-                System.out.println(i + "||"+movie.getDate()+ "||"+movie.getCinemaNumber() +"||"+movie.getTime()+"||"+  movie.getTitle() + "(" + (movie.isPremiere() ? "Premiere" : "Regular") + ")");
+                System.out.println("  [" + i + "] " + dateToDisplay + " | Cinema " + movie.getCinemaNumber()
+                    + " | " + movie.getTime() + " | " + movie.getTitle()
+                    + " (" + (movie.isPremiere() ? "Premiere" : "Regular") + ")");
                 found = true;
                 i++;
             }
