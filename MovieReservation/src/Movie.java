@@ -24,7 +24,7 @@ public class Movie {
                 ", Time: " + time +
                 ", Premiere: " + (isPremiere ? "Yes" : "No") +
                 ", Title: " + title +
-                ", Length: " + length + " minutes";
+                ", Length: " + length + " Hour/s";
     }
     public void addReservation(String ticketNumber, ArrayList<String> reservedSeats) {
         reservations.put(ticketNumber, reservedSeats);
