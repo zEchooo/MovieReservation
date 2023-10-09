@@ -25,10 +25,10 @@ public class SeatReservation {
         int maxAvailableSeats = 40 - occupiedSeatsCount;
 
         // Keep asking for input until a valid integer is provided
-        while (numSeatsToReserve < 0 || numSeatsToReserve > maxAvailableSeats) {
+        while (numSeatsToReserve < 1 || numSeatsToReserve > maxAvailableSeats) {
             System.out.println("\nCinema has " + occupiedSeatsCount + " occupied seats.");
             System.out.print("Enter the number of seats to reserve (available: " + maxAvailableSeats + "): ");
-
+  
             // Check if the input is an integer
             if (scanner.hasNextInt()) {
                 numSeatsToReserve = scanner.nextInt();
@@ -264,7 +264,7 @@ public class SeatReservation {
                 reservations.remove(ticketNumberToCancel);
 
                 // Save updated reservation to CSV (implement this part)
-                updateCsvFile("reservations.csv", movies);
+                updateCsvFile("reservations.csv", movies, ticketNumberToCancel);
 
                 // You should also update the CSV file with the latest reservation information.
 
@@ -282,7 +282,7 @@ public class SeatReservation {
         System.out.println("Ticket Number " + ticketNumberToCancel + " was not found in the reservation records.");
     }
 
-    public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies) {
+    public static void updateCsvFile(String csvFilePath, ArrayList<Movie> movies,String ticketNumberToCancel) {
         try (FileWriter writer = new FileWriter(csvFilePath, false)) { // Use 'false' to overwrite the entire file
             // Write CSV header
             writer.append("Ticket Number,Date,Cinema Number,Time,Reserved Seats,Total Price\n");

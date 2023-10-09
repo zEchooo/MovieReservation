@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,8 +75,11 @@ public class MovieSchedule {
         for (Movie movie : movies) {
             uniqueDates.add(movie.getDate());
         }
-        return new ArrayList<>(uniqueDates);
+        List<String> sortedDates = new ArrayList<>(uniqueDates);
+        Collections.sort(sortedDates);
+        return sortedDates;
     }
+    
     public ArrayList<Movie> getMovies() {
         return movies;
     }
