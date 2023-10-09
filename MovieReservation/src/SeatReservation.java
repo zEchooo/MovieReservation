@@ -50,7 +50,7 @@ public class SeatReservation {
         // Keep asking for input until a valid integer is provided
         if(!selectedMovie.isPremiere()){
             while (numOfDiscount < 0 || numOfDiscount > numSeatsToReserve) {
-                System.out.print("Enter number of senior citizens: ");
+                System.out.print("Enter number of senior citizens / pwd: ");
     
                 // Check if the input is an integer
                 if (scanner.hasNextInt()) {
